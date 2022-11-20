@@ -14,8 +14,7 @@ class OperationInteractor
 {
     private DataTrasferInterface $operationData;
 
-    public function __construct(DataTrasferInterface $operation)
-    {
+    public function __construct(DataTrasferInterface $operation) {
         $this->operationData = $operation;
     }
 
@@ -24,8 +23,7 @@ class OperationInteractor
      * @throws OperationProhibitedException
      * @throws ClientNotFoundException
      */
-    public function executeOperation(ClientPool $clientPool)
-    {
+    public function executeOperation(ClientPool $clientPool) {
         //TODO - remove ClientPool from arguments, dependency should be removed
         $client = $clientPool->get($this->operationData->clientId, $this->operationData->clientType);
         $operation = new Operation($this->operationData);
@@ -33,19 +31,21 @@ class OperationInteractor
             case 'deposit':
                 if ($client instanceof DepositableInterface) {
                     $client->deposit($operation);
-                } else {
+                }
+                else {
                     throw new OperationProhibitedException('Operation type is not supported by this type of client');
                 }
                 break;
             case 'withdraw':
                 if ($client instanceof WithdrawableInterface) {
                     $client->withdraw($operation);
-                } else {
+                }
+                else {
                     throw new OperationProhibitedException('Operation type is not supported by this type of client');
                 }
                 break;
             default:
-                throw new OperationTypeNotFoundException('Operation type '.$operation->getOperationType().' is not supported by the system');
+                throw new OperationTypeNotFoundException('Operation type ' . $operation->getOperationType() . ' is not supported by the system');
         }
     }
 }

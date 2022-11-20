@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Exceptions;
 
-class OperationProhibitedException extends \Exception
+use Exception;
+
+class OperationProhibitedException extends Exception
 {
 }

@@ -10,8 +10,7 @@ class CurrencyConverter
      * We have got here only 1 param, because task is simplified. We need to get only exchange rates FROM or TO euro.
      * @throws CurrencyNotFoundException
      */
-    public static function getExchangeRate(string $from, string $to = 'EUR')
-    {
+    public static function getExchangeRate(string $from, string $to = 'EUR') {
         $url = 'https://developers.paysera.com/tasks/api/currency-exchange-rates';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -21,8 +20,9 @@ class CurrencyConverter
 
         $exchangeRates = json_decode($data, true);
         if (isset($exchangeRates['rates'][$from])) {
-            $exchangeRate = 1/$exchangeRates['rates'][$from];
-        } else {
+            $exchangeRate = 1 / $exchangeRates['rates'][$from];
+        }
+        else {
             throw new CurrencyNotFoundException('Currency ' . $from . ' is not valid');
         }
         return $exchangeRate;

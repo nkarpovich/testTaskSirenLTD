@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Exceptions;
 
-class InputException extends \Exception
+use Exception;
+
+class InputException extends Exception
 {
 }

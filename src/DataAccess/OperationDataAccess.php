@@ -12,8 +12,7 @@ class OperationDataAccess implements DataAccessInterface
     /**
      * @return array
      */
-    public function get()
-    {
+    public function get() {
         return $this->operations;
     }
 
@@ -21,8 +20,7 @@ class OperationDataAccess implements DataAccessInterface
      * @param array $data
      * @return void
      */
-    public function add(array $data)
-    {
+    public function add(array $data) {
         $this->operations[] = $data;
     }
 }

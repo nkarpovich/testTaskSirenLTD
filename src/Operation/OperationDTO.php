@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Operation;
 
+use DateTime;
+use Exception;
 use Siren\CommissionTask\DataTransfer\DataTrasferInterface;
 
 /**
@@ -9,7 +11,7 @@ use Siren\CommissionTask\DataTransfer\DataTrasferInterface;
  */
 class OperationDTO implements DataTrasferInterface
 {
-    public \DateTime $date;
+    public DateTime $date;
     public int $clientId;
     public string $clientType;
     public string $operationType;
@@ -17,11 +19,10 @@ class OperationDTO implements DataTrasferInterface
     public string $operationCurrency;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function __construct(array $csvDataString)
-    {
-        $this->date = new \DateTime($csvDataString[0]);
+    public function __construct(array $csvDataString) {
+        $this->date = new DateTime($csvDataString[0]);
         $this->clientId = $csvDataString[1];
         $this->clientType = $csvDataString[2];
         $this->operationType = $csvDataString[3];

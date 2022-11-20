@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Exceptions;
 
-class OperationTypeNotFoundException extends \Exception
+use Exception;
+
+class OperationTypeNotFoundException extends Exception
 {
 }

@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Exceptions;
 
-class ClientNotFoundException extends \Exception
+use Exception;
+
+class ClientNotFoundException extends Exception
 {
 }

@@ -6,6 +6,7 @@ namespace Siren\CommissionTask;
  * Controller is simplified
  */
 
+use Exception;
 use Siren\CommissionTask\Client\ClientPool;
 use Siren\CommissionTask\Operation\OperationDTO;
 use Siren\CommissionTask\Operation\OperationInteractor;
@@ -13,10 +14,9 @@ use Siren\CommissionTask\Operation\OperationInteractor;
 class Controller
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function executeOperations(array $operationsData)
-    {
+    public function executeOperations(array $operationsData) {
         $clientPool = new ClientPool();
         foreach ($operationsData as $operation) {
             $dto = new OperationDTO($operation);

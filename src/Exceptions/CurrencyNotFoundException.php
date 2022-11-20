@@ -2,6 +2,8 @@
 
 namespace Siren\CommissionTask\Exceptions;
 
-class CurrencyNotFoundException extends \Exception
+use Exception;
+
+class CurrencyNotFoundException extends Exception
 {
 }
