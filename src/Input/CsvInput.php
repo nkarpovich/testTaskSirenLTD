@@ -8,10 +8,16 @@ class CsvInput implements inputInterface
 {
     private string $filePath;
 
+    /**
+     * @param string $filePath
+     */
     public function __construct(string $filePath) {
         $this->setFilePath($filePath);
     }
 
+    /**
+     * @return array
+     */
     public function getInputData(): array {
         $resData = [];
         if (($handle = fopen($this->getFilePath(), "r")) !== false) {

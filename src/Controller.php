@@ -14,7 +14,11 @@ use Siren\CommissionTask\Operation\OperationInteractor;
 class Controller
 {
     /**
-     * @throws Exception
+     * @param array $operationsData
+     * @return void
+     * @throws Exceptions\ClientNotFoundException
+     * @throws Exceptions\OperationProhibitedException
+     * @throws Exceptions\OperationTypeNotFoundException
      */
     public function executeOperations(array $operationsData) {
         $clientPool = new ClientPool();

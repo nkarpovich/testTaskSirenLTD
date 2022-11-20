@@ -57,10 +57,19 @@ class FeeCalculator
         return $this->feeRound($fee);
     }
 
+    /**
+     * @param $fee
+     * @return float|int
+     */
     private function feeRound($fee) {
         return $this->roudUp($fee, 2);
     }
 
+    /**
+     * @param $value
+     * @param $places
+     * @return float|int
+     */
     private function roudUp($value, $places = 0) {
         if ($places < 0) {
             $places = 0;
@@ -92,10 +101,16 @@ class FeeCalculator
         return $fee;
     }
 
+    /**
+     * @return int
+     */
     private function getWeeklyOperationsCount(): int {
         return count($this->getOperationsForCurrenWeek());
     }
 
+    /**
+     * @return array
+     */
     private function getOperationsForCurrenWeek(): array {
         $operations = [];
         $monday = clone $this->operation->getDate();
@@ -130,6 +145,12 @@ class FeeCalculator
         return $weeklySum;
     }
 
+    /**
+     * @param string $currency
+     * @param float $val
+     * @return float|int
+     * @throws CurrencyNotFoundException
+     */
     private function convertToEuro(string $currency, float $val) {
         if ($currency === 'EUR') {
             return $val;

@@ -69,10 +69,17 @@ class Operation
         return $this->operationCurrency;
     }
 
+    /**
+     * @return float
+     */
     public function getFee(): float {
         return $this->fee;
     }
 
+    /**
+     * @param float $fee
+     * @return void
+     */
     public function setFee(float $fee) {
         $this->fee = $fee;
     }
