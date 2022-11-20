@@ -23,7 +23,7 @@ class OperationInteractor
      * @throws OperationProhibitedException
      * @throws ClientNotFoundException
      */
-    public function executeOperation(ClientPool $clientPool) {
+    public function executeOperation(ClientPool $clientPool): float {
         //TODO - remove ClientPool from arguments, dependency should be removed
         $client = $clientPool->get($this->operationData->clientId, $this->operationData->clientType);
         $operation = new Operation($this->operationData);
@@ -47,5 +47,6 @@ class OperationInteractor
             default:
                 throw new OperationTypeNotFoundException('Operation type ' . $operation->getOperationType() . ' is not supported by the system');
         }
+        return $operation->getFee();
     }
 }
