@@ -2,12 +2,14 @@
 
 namespace Siren\CommissionTask\Client;
 
+use Siren\CommissionTask\Exceptions\ClientNotFoundException;
+
 class ClientPool
 {
-    private array $clientInstances;
+    private array $clientInstances = [];
 
     /**
-     * @throws \ClientNotFoundException
+     * @throws ClientNotFoundException
      */
     public function get(int $clientId, string $clientType){
         if(!isset($this->clientInstances[$clientId])){

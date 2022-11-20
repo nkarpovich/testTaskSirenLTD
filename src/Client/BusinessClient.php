@@ -5,17 +5,28 @@ declare(strict_types=1);
 namespace Siren\CommissionTask\Client;
 
 
+use Siren\CommissionTask\Exceptions\CurrencyNotFoundException;
+use Siren\CommissionTask\FeeCalculator\FeeCalculator;
+use Siren\CommissionTask\Operation\Operation;
+
 class BusinessClient extends Client implements WithdrawableInterface, DepositableInterface
 {
-    public function withdraw(float $amount, string $currency) {
-        return $this->calculateFee('withdraw',$amount,$currency);
+    public function withdraw(Operation $operation) {
+        $this->doOperation($operation);
     }
 
-    public function deposit(float $amount, string $currency) {
-        return $this->calculateFee('deposit',$amount,$currency);
+    public function deposit(Operation $operation) {
+        $this->doOperation($operation);
     }
 
-    public function calculateFee(string $operation, float $amount, string $currency) {
-        return 0;
+    /**
+     * @throws CurrencyNotFoundException
+     */
+    function applyFee(Operation &$operation) {
+        //TODO not quite good solution, bad dependency
+        $feeCalculator = new FeeCalculator($this->getOperationsHistory(),$operation);
+        $fee = $feeCalculator->calculateFee();
+        $operation->setFee($fee);
+        echo $operation->getFee().PHP_EOL;
     }
 }

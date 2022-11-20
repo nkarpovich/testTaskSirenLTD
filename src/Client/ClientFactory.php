@@ -2,10 +2,12 @@
 
 namespace Siren\CommissionTask\Client;
 
+use Siren\CommissionTask\Exceptions\ClientNotFoundException;
+
 class ClientFactory
 {
     /**
-     * @throws \ClientNotFoundException
+     * @throws ClientNotFoundException
      */
     public static function build(int $clientId, string $clientType)
     {
@@ -13,7 +15,7 @@ class ClientFactory
         if (class_exists($className)) {
             return new  $className($clientId);
         } else {
-            throw new \ClientNotFoundException('Wrong client type: '.$clientType);
+            throw new ClientNotFoundException('Wrong client type: '.$clientType);
         }
     }
 }

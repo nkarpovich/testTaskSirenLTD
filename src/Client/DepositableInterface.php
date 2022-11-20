@@ -2,9 +2,9 @@
 
 namespace Siren\CommissionTask\Client;
 
-use Siren\CommissionTask\OperationRules\RulesInterface;
+use Siren\CommissionTask\Operation\Operation;
 
 Interface DepositableInterface
 {
-    function deposit(float $amount, string $currency);
+    function deposit(Operation $operation);
 }

@@ -2,7 +2,9 @@
 
 namespace Siren\CommissionTask\Client;
 
+use Siren\CommissionTask\Operation\Operation;
+
 Interface WithdrawableInterface
 {
-    function withdraw(float $amount, string $currency);
+    function withdraw(Operation $operation);
 }
