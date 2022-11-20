@@ -1,22 +1,24 @@
 <?php
-namespace Siren\CommissionTask\Input;
 
+namespace Siren\CommissionTask\Input;
 
 class CsvInput implements inputInterface
 {
     private string $filePath;
 
-    public function __construct(string $filePath){
-       $this->setFilePath($filePath);
+    public function __construct(string $filePath)
+    {
+        $this->setFilePath($filePath);
     }
-    public function getInputData(): array {
+    public function getInputData(): array
+    {
         $resData = [];
-        if (($handle = fopen($this->getFilePath(), "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+        if (($handle = fopen($this->getFilePath(), "r")) !== false) {
+            while (($data = fgetcsv($handle, 10000, ",")) !== false) {
                 $resData[] = $data;
             }
             fclose($handle);
-        }else{
+        } else {
             throw new \InputException('Can`t open file');
         }
         return $resData;
@@ -25,14 +27,16 @@ class CsvInput implements inputInterface
     /**
      * @return string
      */
-    public function getFilePath(): string {
+    public function getFilePath(): string
+    {
         return $this->filePath;
     }
 
     /**
      * @param string $filePath
      */
-    public function setFilePath(string $filePath): void {
+    public function setFilePath(string $filePath): void
+    {
         $this->filePath = $filePath;
     }
 }

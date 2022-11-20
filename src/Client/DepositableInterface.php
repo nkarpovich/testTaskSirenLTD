@@ -4,7 +4,7 @@ namespace Siren\CommissionTask\Client;
 
 use Siren\CommissionTask\Operation\Operation;
 
-Interface DepositableInterface
+interface DepositableInterface
 {
-    function deposit(Operation $operation);
+    public function deposit(Operation $operation);
 }

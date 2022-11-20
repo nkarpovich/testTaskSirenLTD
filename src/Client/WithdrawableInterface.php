@@ -4,7 +4,7 @@ namespace Siren\CommissionTask\Client;
 
 use Siren\CommissionTask\Operation\Operation;
 
-Interface WithdrawableInterface
+interface WithdrawableInterface
 {
-    function withdraw(Operation $operation);
+    public function withdraw(Operation $operation);
 }

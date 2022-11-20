@@ -11,9 +11,10 @@ class ClientPool
     /**
      * @throws ClientNotFoundException
      */
-    public function get(int $clientId, string $clientType){
-        if(!isset($this->clientInstances[$clientId])){
-            $this->clientInstances[$clientId] = ClientFactory::build($clientId,$clientType);
+    public function get(int $clientId, string $clientType)
+    {
+        if (!isset($this->clientInstances[$clientId])) {
+            $this->clientInstances[$clientId] = ClientFactory::build($clientId, $clientType);
         }
         return $this->clientInstances[$clientId];
     }

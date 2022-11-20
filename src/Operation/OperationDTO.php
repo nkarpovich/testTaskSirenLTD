@@ -19,7 +19,8 @@ class OperationDTO implements DataTrasferInterface
     /**
      * @throws \Exception
      */
-    public function __construct(array $csvDataString){
+    public function __construct(array $csvDataString)
+    {
         $this->date = new \DateTime($csvDataString[0]);
         $this->clientId = $csvDataString[1];
         $this->clientType = $csvDataString[2];

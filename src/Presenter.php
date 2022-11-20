@@ -4,5 +4,4 @@ namespace Siren\CommissionTask;
 
 class Presenter
 {
-
 }

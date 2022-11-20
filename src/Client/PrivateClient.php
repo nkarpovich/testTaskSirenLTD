@@ -8,21 +8,23 @@ use Siren\CommissionTask\Operation\Operation;
 
 class PrivateClient extends Client implements WithdrawableInterface, DepositableInterface
 {
-
-    public function withdraw(Operation $operation) {
+    public function withdraw(Operation $operation)
+    {
         $this->doOperation($operation);
     }
 
-    public function deposit(Operation $operation) {
+    public function deposit(Operation $operation)
+    {
         $this->doOperation($operation);
     }
 
     /**
      * @throws CurrencyNotFoundException
      */
-    function applyFee(Operation &$operation) {
+    public function applyFee(Operation &$operation)
+    {
         //TODO not quite good solution, bad dependency
-        $feeCalculator = new FeeCalculator($this->getOperationsHistory(),$operation);
+        $feeCalculator = new FeeCalculator($this->getOperationsHistory(), $operation);
         $fee = $feeCalculator->calculateFee();
         $operation->setFee($fee);
         echo $operation->getFee().PHP_EOL;

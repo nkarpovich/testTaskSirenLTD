@@ -15,7 +15,8 @@ class Controller
     /**
      * @throws \Exception
      */
-    public function executeOperations(array $operationsData){
+    public function executeOperations(array $operationsData)
+    {
         $clientPool = new ClientPool();
         foreach ($operationsData as $operation) {
             $dto = new OperationDTO($operation);

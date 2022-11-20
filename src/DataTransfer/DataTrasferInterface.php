@@ -2,6 +2,6 @@
 
 namespace Siren\CommissionTask\DataTransfer;
 
-interface DataTrasferInterface{
-
+interface DataTrasferInterface
+{
 }

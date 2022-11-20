@@ -11,11 +11,11 @@ use Siren\CommissionTask\Operation\Operation;
  */
 class FeeCalculator
 {
-    const DEPOSIT_CHARGE = 0.03 / 100;
-    const PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM = 1000;
-    const PRIVATE_CLIENTS_WITHDRAW_CHARGE = 0.3 / 100;
-    const BUSINESS_CLIENTS_WITHDRAW_CHARGE = 0.5 / 100;
-    const WEEKLY_OPERATIONS_WITHOUT_COMMISSION = 3;
+    public const DEPOSIT_CHARGE = 0.03 / 100;
+    public const PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM = 1000;
+    public const PRIVATE_CLIENTS_WITHDRAW_CHARGE = 0.3 / 100;
+    public const BUSINESS_CLIENTS_WITHDRAW_CHARGE = 0.5 / 100;
+    public const WEEKLY_OPERATIONS_WITHOUT_COMMISSION = 3;
 
     private array $clientOperationList;
     private Operation $operation;
@@ -25,7 +25,8 @@ class FeeCalculator
      * @param array $clientOperationList
      * @param Operation $operation
      */
-    public function __construct(array $clientOperationList, Operation $operation) {
+    public function __construct(array $clientOperationList, Operation $operation)
+    {
         //We need operations that were made earlier
         $this->clientOperationList = $clientOperationList;
         $this->operation = $operation;
@@ -35,32 +36,33 @@ class FeeCalculator
      * @return float|int
      * @throws CurrencyNotFoundException
      */
-    public function calculateFee() {
+    public function calculateFee()
+    {
         $feeInEuro = 0;
         if ($this->operation->getOperationType() === 'deposit') {
             $feeInEuro = $this->operation->getOperationAmount() * self::DEPOSIT_CHARGE;
-        }
-        elseif ($this->operation->getOperationType() === 'withdraw') {
+        } elseif ($this->operation->getOperationType() === 'withdraw') {
             if ($this->operation->getClientType() === 'business') {
                 $feeInEuro = $this->operation->getOperationAmount() * self::BUSINESS_CLIENTS_WITHDRAW_CHARGE;
-            }
-            elseif ($this->operation->getClientType() === 'private') {
+            } elseif ($this->operation->getClientType() === 'private') {
                 $feeInEuro = $this->calculateFeeForPrivateWithdraw();
             }
         }
-        if($this->operation->getOperationCurrency()!=='EUR'){
+        if ($this->operation->getOperationCurrency()!=='EUR') {
             $fee = (1/CurrencyConverter::getExchangeRate($this->operation->getOperationCurrency()))*$feeInEuro;
-        }else{
+        } else {
             $fee = $feeInEuro;
         }
         return $this->feeRound($fee);
     }
 
-    private function feeRound($fee) {
+    private function feeRound($fee)
+    {
         return $this->roudUp($fee, 2);
     }
 
-    private function roudUp($value, $places = 0) {
+    private function roudUp($value, $places = 0)
+    {
         if ($places < 0) {
             $places = 0;
         }
@@ -71,18 +73,19 @@ class FeeCalculator
     /**
      * @throws CurrencyNotFoundException
      */
-    private function calculateFeeForPrivateWithdraw() {
+    private function calculateFeeForPrivateWithdraw()
+    {
         $fee = 0;
         $weeklyOperationsCount = $this->getWeeklyOperationsCount();
         $weeklySumEuro = $this->getWeeklySumInEuro();
         if ($weeklyOperationsCount >= self::WEEKLY_OPERATIONS_WITHOUT_COMMISSION || $weeklySumEuro >= self::PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM) {
             $fee = $this->operation->getOperationAmount() * self::PRIVATE_CLIENTS_WITHDRAW_CHARGE;
-        }
-        else {
-
-            $totalSum = $weeklySumEuro + $this->convertToEuro($this->operation->getOperationCurrency(),
-                    $this->operation->getOperationAmount());
-            if (($totalSum) > self::PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM){
+        } else {
+            $totalSum = $weeklySumEuro + $this->convertToEuro(
+                $this->operation->getOperationCurrency(),
+                $this->operation->getOperationAmount()
+            );
+            if (($totalSum) > self::PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM) {
                 $fee = ($totalSum - self::PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM) *
                     self::PRIVATE_CLIENTS_WITHDRAW_CHARGE;
             }
@@ -90,11 +93,13 @@ class FeeCalculator
         return $fee;
     }
 
-    private function getWeeklyOperationsCount(): int {
+    private function getWeeklyOperationsCount(): int
+    {
         return count($this->getOperationsForCurrenWeek());
     }
 
-    private function getOperationsForCurrenWeek(): array {
+    private function getOperationsForCurrenWeek(): array
+    {
         $operations = [];
         $monday = clone $this->operation->getDate();
         $monday->modify('monday this week');
@@ -113,24 +118,27 @@ class FeeCalculator
     /**
      * @throws CurrencyNotFoundException
      */
-    private function getWeeklySumInEuro() {
+    private function getWeeklySumInEuro()
+    {
         $weeklySum = 0;
         $weeklyOperations = $this->getOperationsForCurrenWeek();
         if (count($weeklyOperations) > 0) {
             foreach ($weeklyOperations as $operation) {
-                $amountInEuro = $this->convertToEuro($operation->getOperationCurrency(),
-                    $operation->getOperationAmount());
+                $amountInEuro = $this->convertToEuro(
+                    $operation->getOperationCurrency(),
+                    $operation->getOperationAmount()
+                );
                 $weeklySum += $amountInEuro;
             }
         }
         return $weeklySum;
     }
 
-    private function convertToEuro(string $currency, float $val) {
+    private function convertToEuro(string $currency, float $val)
+    {
         if ($currency === 'EUR') {
             return $val;
-        }
-        else {
+        } else {
             $rate = CurrencyConverter::getExchangeRate($currency);
             return $rate * $val;
         }
