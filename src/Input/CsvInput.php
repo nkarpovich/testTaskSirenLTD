@@ -2,7 +2,7 @@
 
 namespace Siren\CommissionTask\Input;
 
-use InputException;
+use Siren\CommissionTask\Exceptions\InputException;
 
 class CsvInput implements inputInterface
 {
@@ -17,6 +17,7 @@ class CsvInput implements inputInterface
 
     /**
      * @return array
+     * @throws InputException
      */
     public function getInputData(): array {
         $resData = [];

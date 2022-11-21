@@ -4,6 +4,9 @@ namespace Siren\CommissionTask\Client;
 
 use Siren\CommissionTask\Exceptions\ClientNotFoundException;
 
+/**
+ * Factory method is used to get Client object depending on the client type
+ */
 class ClientFactory
 {
     /**

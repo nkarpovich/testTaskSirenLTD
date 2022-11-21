@@ -28,10 +28,8 @@ class PrivateClient extends Client implements WithdrawableInterface, Depositable
      * @throws CurrencyNotFoundException
      */
     public function applyFee(Operation &$operation) {
-        //TODO not quite good solution, bad dependency
         $feeCalculator = new FeeCalculator($this->getOperationsHistory(), $operation);
         $fee = $feeCalculator->calculateFee();
         $operation->setFee($fee);
-        echo $operation->getFee() . PHP_EOL;
     }
 }

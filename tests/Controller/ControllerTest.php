@@ -33,7 +33,7 @@ class ControllerTest extends TestCase
     public function testExecuteOperations(array $operationsData, array $expectation) {
         $this->assertEquals(
             $expectation,
-            $this->controller->executeOperations($operationsData)
+            $this->controller->executeOperations($operationsData)->getFees()
         );
     }
 

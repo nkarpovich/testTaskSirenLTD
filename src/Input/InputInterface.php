@@ -2,7 +2,7 @@
 
 namespace Siren\CommissionTask\Input;
 
-interface inputInterface
+interface InputInterface
 {
     /**
      * @return array

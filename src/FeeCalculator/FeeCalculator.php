@@ -11,22 +11,20 @@ use Siren\CommissionTask\Operation\Operation;
  */
 class FeeCalculator
 {
-    public const DEPOSIT_CHARGE = 0.03 / 100;
-    public const PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM = 1000;
-    public const PRIVATE_CLIENTS_WITHDRAW_CHARGE = 0.3 / 100;
-    public const BUSINESS_CLIENTS_WITHDRAW_CHARGE = 0.5 / 100;
-    public const WEEKLY_OPERATIONS_WITHOUT_COMMISSION = 3;
+    private const DEPOSIT_CHARGE = 0.03 / 100;
+    private const PRIVATE_CLIENTS_FREE_OF_CHARGE_SUM = 1000;
+    private const PRIVATE_CLIENTS_WITHDRAW_CHARGE = 0.3 / 100;
+    private const BUSINESS_CLIENTS_WITHDRAW_CHARGE = 0.5 / 100;
+    private const WEEKLY_OPERATIONS_WITHOUT_COMMISSION = 3;
 
     private array $clientOperationList;
     private Operation $operation;
 
     /**
-     * Client operation list should be sorted by insertion date
      * @param array $clientOperationList
      * @param Operation $operation
      */
     public function __construct(array $clientOperationList, Operation $operation) {
-        //We need operations that were made earlier
         $this->clientOperationList = $clientOperationList;
         $this->operation = $operation;
     }

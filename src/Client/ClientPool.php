@@ -4,6 +4,9 @@ namespace Siren\CommissionTask\Client;
 
 use Siren\CommissionTask\Exceptions\ClientNotFoundException;
 
+/**
+ * Pool pattern. Used to get instances that are already created and stored in the pool.
+ */
 class ClientPool
 {
     private array $clientInstances = [];
