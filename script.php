@@ -2,6 +2,7 @@
 
 use Siren\CommissionTask\Controller;
 use Siren\CommissionTask\Input\CsvInput;
+use Siren\CommissionTask\View;
 
 require 'vendor/autoload.php';
 
@@ -15,8 +16,10 @@ try {
 
     //Pass data to controller
     $controller = new Controller();
-    $view = $controller->executeOperations($clientsOperations);
+    $operations = $controller->executeOperations($clientsOperations);
 
+    //View object prints fees
+    $view = new View($operations);
     $view->showFees();
 } catch (Throwable $e) {
     echo 'Error: ' . $e->getMessage();

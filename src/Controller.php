@@ -13,19 +13,19 @@ class Controller
 {
     /**
      * @param array $operationsData
-     * @return View
+     * @return array
      * @throws Exceptions\ClientNotFoundException
      * @throws Exceptions\OperationProhibitedException
      * @throws Exceptions\OperationTypeNotFoundException
      * @throws \Exception
      */
-    public function executeOperations(array $operationsData): View {
+    public function executeOperations(array $operationsData): array {
         $operationsDTO = [];
         foreach ($operationsData as $operation) {
             $operationsDTO[] = new OperationDTO($operation);
         }
         $OperationInteractor = new OperationInteractor($operationsDTO);
         $operations = $OperationInteractor->executeOperations();
-        return new View($operations);
+        return $operations;
     }
 }

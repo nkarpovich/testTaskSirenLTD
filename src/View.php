@@ -2,7 +2,7 @@
 
 namespace Siren\CommissionTask;
 
-class View
+class View implements ViewInterface
 {
     private array $operations;
 
