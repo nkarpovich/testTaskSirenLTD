@@ -15,7 +15,7 @@ try {
 
     //Pass data to controller
     $controller = new Controller();
-    $view =  $controller->executeOperations($clientsOperations);
+    $view = $controller->executeOperations($clientsOperations);
 
     $view->showFees();
 } catch (Throwable $e) {
