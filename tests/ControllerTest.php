@@ -5,13 +5,17 @@ namespace Siren\CommissionTask\Tests\Controller;
 
 use PHPUnit\Framework\TestCase;
 use Siren\CommissionTask\Controller;
+use Siren\CommissionTask\Exceptions\ClientNotFoundException;
+use Siren\CommissionTask\Exceptions\OperationProhibitedException;
+use Siren\CommissionTask\Exceptions\OperationTypeNotFoundException;
 
 class ControllerTest extends TestCase
 {
+
     /**
-     * @var Math
+     * @var Controller
      */
-    private $controller;
+    private Controller $controller;
 
     public function setUp():void {
         $this->controller = new Controller();
@@ -21,9 +25,9 @@ class ControllerTest extends TestCase
      * @param array $operationsData
      * @param array $expectation
      *
-     * @throws \Siren\CommissionTask\Exceptions\ClientNotFoundException
-     * @throws \Siren\CommissionTask\Exceptions\OperationProhibitedException
-     * @throws \Siren\CommissionTask\Exceptions\OperationTypeNotFoundException
+     * @throws ClientNotFoundException
+     * @throws OperationProhibitedException
+     * @throws OperationTypeNotFoundException
      * @dataProvider dataProviderForAddTesting
      */
     public function testExecuteOperations(array $operationsData, array $expectation) {
