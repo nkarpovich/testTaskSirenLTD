@@ -2,7 +2,7 @@
 
 use Siren\CommissionTask\Controller;
 use Siren\CommissionTask\Input\CsvInput;
-use Siren\CommissionTask\View;
+use Siren\CommissionTask\View\View;
 
 require 'vendor/autoload.php';
 

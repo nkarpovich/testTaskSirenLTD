@@ -1,6 +1,6 @@
 <?php
 
-namespace Siren\CommissionTask;
+namespace Siren\CommissionTask\View;
 
 class View implements ViewInterface
 {
@@ -20,16 +20,5 @@ class View implements ViewInterface
         foreach ($this->operations as $operation) {
             echo $operation->getFee() . PHP_EOL;
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getFees(): array {
-        $fees = [];
-        foreach ($this->operations as $operation) {
-            $fees[] = $operation->getFee();
-        }
-        return $fees;
     }
 }
