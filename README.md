@@ -11,5 +11,5 @@ Run the application:
 ## Runing tests
 To run the test:
 ```
- ./bin/phpunit ./tests/ControllerTest.php 
+ ./bin/phpunit ./tests/OperationInteractorTest.php 
 ```

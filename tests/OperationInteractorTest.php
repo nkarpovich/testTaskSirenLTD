@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Siren\CommissionTask\Tests\Controller;
+namespace Siren\CommissionTask\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Siren\CommissionTask\Client\ClientPool;
