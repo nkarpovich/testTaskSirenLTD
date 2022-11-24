@@ -7,16 +7,14 @@ use Siren\CommissionTask\View\View;
 require 'vendor/autoload.php';
 
 try {
-    //simplification of console input and input in general
+    //simplification of console input
     $filePath = $argv[1];
 
-    //Get operations data
     $input = new CsvInput($filePath);
-    $clientsOperations = $input->getInputData();
 
-    //Pass data to controller
-    $controller = new Controller();
-    $operations = $controller->executeOperations($clientsOperations);
+    //Pass input to controller
+    $controller = new Controller($input);
+    $operations = $controller->executeOperations();
 
     //View object prints fees
     $view = new View($operations);

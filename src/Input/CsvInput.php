@@ -6,6 +6,11 @@ use Siren\CommissionTask\Exceptions\InputException;
 
 class CsvInput implements inputInterface
 {
+
+    /**
+     * Path to csv file
+     * @var string
+     */
     private string $filePath;
 
     /**
@@ -19,7 +24,7 @@ class CsvInput implements inputInterface
      * @return array
      * @throws InputException
      */
-    public function getInputData(): array {
+    public function getData(): array {
         $resData = [];
         if (($handle = fopen($this->getFilePath(), "r")) !== false) {
             while (($data = fgetcsv($handle, 10000, ",")) !== false) {

@@ -7,5 +7,5 @@ interface InputInterface
     /**
      * @return array
      */
-    public function getInputData(): array;
+    public function getData(): array;
 }
