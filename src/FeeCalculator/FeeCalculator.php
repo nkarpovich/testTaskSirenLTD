@@ -17,7 +17,16 @@ class FeeCalculator
     private const BUSINESS_CLIENTS_WITHDRAW_CHARGE = 0.5 / 100;
     private const WEEKLY_OPERATIONS_WITHOUT_COMMISSION = 3;
 
+    /**
+     * We need all previous client operations for calculations
+     * @var array
+     */
     private array $clientOperationList;
+
+    /**
+     * Current operation for calculations
+     * @var Operation
+     */
     private Operation $operation;
 
     /**
