@@ -55,19 +55,18 @@ class FeeCalculator
      * @throws CurrencyNotFoundException
      */
     public function calculateFee() {
-        $fee = 0;
         if ($this->operation->getOperationType() === 'deposit') {
-            $fee = $this->calculateFeeForDeposit();
+            return $this->calculateFeeForDeposit();
         }
         if ($this->operation->getOperationType() === 'withdraw') {
             if ($this->operation->getClientType() === 'business') {
-                $fee = $this->calculateFeeForBusinessWithdraw();
+                return $this->calculateFeeForBusinessWithdraw();
             }
-            elseif ($this->operation->getClientType() === 'private') {
-                $fee = $this->calculateFeeForPrivateWithdraw();
+            if ($this->operation->getClientType() === 'private') {
+                return $this->calculateFeeForPrivateWithdraw();
             }
         }
-        return $fee;
+        return 0;
     }
 
     /**
