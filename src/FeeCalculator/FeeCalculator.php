@@ -42,47 +42,46 @@ class FeeCalculator
      * @return float|int
      * @throws CurrencyNotFoundException
      */
-    public function calculateFee() {
-        $feeInEuro = 0;
-        if ($this->operation->getOperationType() === 'deposit') {
-            $feeInEuro = $this->operation->getOperationAmount() * self::DEPOSIT_CHARGE;
-        }
-        elseif ($this->operation->getOperationType() === 'withdraw') {
-            if ($this->operation->getClientType() === 'business') {
-                $feeInEuro = $this->operation->getOperationAmount() * self::BUSINESS_CLIENTS_WITHDRAW_CHARGE;
-            }
-            elseif ($this->operation->getClientType() === 'private') {
-                $feeInEuro = $this->calculateFeeForPrivateWithdraw();
-            }
-        }
+    public function getFormattedFee() {
+        $fee = $this->calculateFee();
         if ($this->operation->getOperationCurrency() !== 'EUR') {
-            $fee = (1 / CurrencyConverter::getExchangeRate($this->operation->getOperationCurrency())) * $feeInEuro;
-        }
-        else {
-            $fee = $feeInEuro;
+            $fee = $this->covertFeeToEuro($fee);
         }
         return $this->feeRound($fee);
     }
 
     /**
-     * @param $fee
      * @return float|int
+     * @throws CurrencyNotFoundException
      */
-    private function feeRound($fee) {
-        return $this->roudUp($fee, 2);
+    public function calculateFee() {
+        $fee = 0;
+        if ($this->operation->getOperationType() === 'deposit') {
+            $fee = $this->calculateFeeForDeposit();
+        }
+        if ($this->operation->getOperationType() === 'withdraw') {
+            if ($this->operation->getClientType() === 'business') {
+                $fee = $this->calculateFeeForBusinessWithdraw();
+            }
+            elseif ($this->operation->getClientType() === 'private') {
+                $fee = $this->calculateFeeForPrivateWithdraw();
+            }
+        }
+        return $fee;
     }
 
     /**
-     * @param $value
-     * @param $places
      * @return float|int
      */
-    private function roudUp($value, $places = 0) {
-        if ($places < 0) {
-            $places = 0;
-        }
-        $mult = pow(10, $places);
-        return ceil($value * $mult) / $mult;
+    private function calculateFeeForDeposit() {
+        return $this->operation->getOperationAmount() * self::DEPOSIT_CHARGE;
+    }
+
+    /**
+     * @return float|int
+     */
+    private function calculateFeeForBusinessWithdraw() {
+        return $this->operation->getOperationAmount() * self::BUSINESS_CLIENTS_WITHDRAW_CHARGE;
     }
 
     /**
@@ -166,5 +165,35 @@ class FeeCalculator
             $rate = CurrencyConverter::getExchangeRate($currency);
             return $rate * $val;
         }
+    }
+
+    /**
+     * @param $fee
+     * @return float|int
+     * @throws CurrencyNotFoundException
+     */
+    public function covertFeeToEuro($fee) {
+        return (1 / CurrencyConverter::getExchangeRate($this->operation->getOperationCurrency())) * $fee;
+    }
+
+    /**
+     * @param $fee
+     * @return float|int
+     */
+    private function feeRound($fee) {
+        return $this->roudUp($fee, 2);
+    }
+
+    /**
+     * @param $value
+     * @param $places
+     * @return float|int
+     */
+    private function roudUp($value, $places = 0) {
+        if ($places < 0) {
+            $places = 0;
+        }
+        $mult = pow(10, $places);
+        return ceil($value * $mult) / $mult;
     }
 }

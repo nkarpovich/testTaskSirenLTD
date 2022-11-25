@@ -23,7 +23,7 @@ class BusinessClient extends Client implements WithdrawableInterface, Depositabl
      */
     public function applyFee(Operation &$operation) {
         $feeCalculator = new FeeCalculator($this->getOperationsHistory(), $operation);
-        $fee = $feeCalculator->calculateFee();
+        $fee = $feeCalculator->getFormattedFee();
         $operation->setFee($fee);
     }
 }

@@ -29,7 +29,7 @@ class PrivateClient extends Client implements WithdrawableInterface, Depositable
      */
     public function applyFee(Operation &$operation) {
         $feeCalculator = new FeeCalculator($this->getOperationsHistory(), $operation);
-        $fee = $feeCalculator->calculateFee();
+        $fee = $feeCalculator->getFormattedFee();
         $operation->setFee($fee);
     }
 }
